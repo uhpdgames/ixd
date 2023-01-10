@@ -1,0 +1,153 @@
+@font-face {
+    font-family: "Josefin Sans";
+    src: url("fonts/JosefinSans-Regular.ttf") format("truetype");
+}
+h1 { font-family: "Josefin Sans", sans-serif }
+
+section {
+    position: absolute; top:0; bottom:0; left:0; right:0;
+    overflow: hidden;
+}
+
+html,
+body {
+    font-family:  "Josefin Sans", sans-serif;
+    overflow: hidden
+}
+
+body{
+    background: black;
+    color: navajowhite;
+    margin: 0;
+    overflow: hidden;
+    background: black
+}
+
+
+@media screen and (orientation:portrait) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        width: 100vh;
+        height: 100vw;
+        overflow-x: hidden;
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+}
+
+@media screen and (orientation:landscape) {
+
+}
+
+canvas{
+    border: 2px solid red;
+    width: inherit;
+    height: inherit;
+}
+
+main .tool-top{
+    z-index: 222;
+    position: absolute;
+    right: 4rem;
+    top: 8rem;    width: 20%;
+    float: right;
+    right: 0;
+}
+
+main .action{
+    position: sticky;
+    width: 50%;
+    display: block;
+    z-index: 99999;
+    left: 0;
+    top:0;
+    margin-top: 15px;
+}
+main  .action .toggleFullscreen{
+
+}
+
+main .action div > button,
+button, .button
+{
+    background: red;
+    color: cornsilk;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    min-width: 100px;
+    width: 100px;
+}
+button{
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 222;
+}
+#myMap{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+main{    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+}
+main  .action .mapIt{
+
+}
+
+main #errorLog{
+
+    display: block;
+    border: 1px solid red;
+    padding: 5px;
+    height: 2rem;
+
+    word-break: break-all;
+
+}
+.hud{    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+.hud-1{
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.hud-2{
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+}
+.map{
+    height: 30rem;
+
+    width: 50%;
+    border: 1px solid blue;
+}
+.box{
+    width: 50vw;
+    height: 50vh;
+    padding: 5px;
+}
+
+
+#myMap.fullscreen{
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#myMap{background:#cc0000; width:500px; height:400px;}
