@@ -412,11 +412,15 @@ footer {
     width: 100%;
     text-align: left;
     margin-left: .2em;
+    position: absolute;
+    top: 4em;
+    background: blue;
+    width: fit-content;
+    height: fit-content;
 }
 
 .log#log-address {
     display: inline-block;
-    color: darkgreen;
     width: 100%;
     text-align: left;
     margin-left: .2em;
@@ -424,14 +428,17 @@ footer {
 
 
       display: block;
-      color: darkgreen;
+      color: snow;
       width: 100%;
       text-align: left;
       margin-left: .2em;
-      position: relative;
-      break-after: ;
-      height: 3rem;
-      break-after: ;
+      position: absolute;
+      
+      top: 3rem;
+      background: blue;
+      height: fit-content;
+  
+      
       word-break: break-word;
       display: -webkit-box;
       -webkit-line-clamp: 3;

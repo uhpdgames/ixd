@@ -4,6 +4,7 @@
 let id;
 let target;
 let options;
+var saveStore = {'test:':1};
 
 var marker, circle;
 
@@ -234,7 +235,24 @@ setTimeout(function () {
     console.log('acsses!');
     sleep(4500);
     hiddenLoading();
+
+   
 }, 1000);
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAUYwRPOsJnD4TDykRVcLNqcfCp9ztKbI8",
+    authDomain: "ungdang-ixd.firebaseapp.com", 
+    projectId: "ungdang-ixd",
+    storageBucket: "ungdang-ixd.appspot.com",
+    messagingSenderId: "876566876215",
+    appId: "1:876566876215:web:3b68df6cc08c6bf553efb2",
+    databaseURL: "https://ungdang-ixd-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+  };
+
+  firebase.initializeApp(firebaseConfig);
+const database_firebase = firebase.database();
+
 function findGetParameter(parameterName) {
     var result = null,
         tmp = [];
@@ -425,6 +443,9 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(setup_meter, 50);
     setInterval(updateMAP, 5000);
     setInterval(updateWeather, 60000);
+
+    setInterval(getLocalName, 600000);
+
     setInterval(function () {
         weather = undefined;
         document.getElementById('log').innerHTML = '';
@@ -760,6 +781,9 @@ async function updateWeather_2(lat, long) {
     );
 }
 
+
+config.map.place_id = 0;
+
 async function getLocalName(lat = null, lng = null) {
 
     if (lat == null) lat = config.map.lat;
@@ -775,13 +799,18 @@ async function getLocalName(lat = null, lng = null) {
 
     var str = code.compound_code || "";
 
+    if(is_rec === true && config.map.place_id !=0 && config.map.place_id != code.global_code){
+        config.map.place_id = code.global_code;
+
+        write_lat_lng(config.map.place_id);
+    }
+
     document.getElementById('log-address').innerText = str;
     ldBarEnable.set(100, true);
 }
 
 async function updateWeather() {
-    getLocalName();
-
+ 
     ldBarEnable.set(
         0,     /* target value. */
         false   /* enable animation. default is true */
@@ -949,45 +978,32 @@ function mapUPscaleMode()
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-function toggleFullScreen(){
-   
 
+var is_rec = false;
 
+function rec_trigger(){
 
-    let elem = document.querySelector("body");
+    if(is_rec === false){
 
-    // ## The below if statement seems to work better ## if ((document.fullScreenElement && document.fullScreenElement !== null) || (document.msfullscreenElement && document.msfullscreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-    if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
-        if (elem.requestFullScreen) {
-            elem.requestFullScreen();
-        } else if (elem.mozRequestFullScreen) {
-            elem.mozRequestFullScreen();
-        } else if (elem.webkitRequestFullScreen) {
-            elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-        } else if (elem.msRequestFullscreen) {
-            elem.msRequestFullscreen();
-        }else if (vid.webkitEnterFullscreen) {
-            elem.webkitEnterFullscreen(); //for iphone this code worked
-         }
-        // document.addEventListener("mousedown", toggleFullScreen);
+        document.getElementById('btn-rec').classList.add('red');
+        is_rec = true;
+    }else{
 
-    } else {
-        if (document.cancelFullScreen) {
-            document.cancelFullScreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.webkitCancelFullScreen) {
-            document.webkitCancelFullScreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        }
-        else if (document.fullscreenElement) {
-            document.exitFullscreen()
-              .then(() => console.log("Document Exited from Full screen mode"))
-              .catch((err) => console.error(err))
-          } else {
-            document.documentElement.requestFullscreen();
-          }
-        //  document.removeEventListener("mousedown", toggleFullScreen);
+        document.getElementById('btn-rec').classList.remove('red');
+        is_rec = false;
     }
 }
+
+function currentDateTime(){
+    var d = new Date();
+    return d.toLocaleString('vi-VN');
+}
+
+function write_lat_lng(place_id) {
+    firebase.database().ref('google_geo/' + place_id).set({
+        latitude:config.map.lat,
+        longitude:config.map.long,
+        speed:config.map.speed,
+        time: currentDateTime,
+    });
+  }

@@ -39,7 +39,7 @@
     <div class="hud hud-text" id="hud_text">
         <div class="hud-weather hud-text_content">
             <p class="wp">
-                <span class="dis"></span>
+                
                 <div
                         data-preset="fan" style="width: 20em;"
                         class="ldBar label-center temperatureBar"
@@ -67,7 +67,7 @@
                         data-value="0"
                         style="width: 20em;stroke-width: 10"
                 ></div>
-                <span class="dis"></span>
+                
             </p>
         </div>
     </div>
@@ -178,8 +178,8 @@
                     <span class="text">toggle Full</span></a>
             </li>
             <li class="list active">
-                <a href="javascript:void(0)" onclick="toggleFullScreen();">
-                    <span class="icon"><ion-icon name="scan-circle-outline"></ion-icon></span>
+                <a href="javascript:void(0)" onclick="rec_trigger();">
+                    <span class="icon"><ion-icon id="btn-rec" class="blue" name="compass-outline"></ion-icon></span>
                     <span class="text">toggle Full</span></a>
             </li>
             <li class="list">
@@ -217,9 +217,14 @@
 <script src="js/leaflet-kmz.js"></script>
 <script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script defer nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 <script defer src="js/loading-bar.min.js"></script>
 <script src="js/teslahud.js"></script>
 <script defer src="js/main.js"></script>
-<script type="module" src="./js/databases.js"></script>
+<script type="module" defer src="./js/databases.js"></script>
 </body>
 </html>
